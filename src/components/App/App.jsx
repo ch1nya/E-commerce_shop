@@ -7,12 +7,14 @@ import Sidebar from '../Sidebar/Sidebar'
 import { useActionData } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getCategories } from '../../features/categories/categoriesSlice'
+import { getProducts } from '../../features/products/productsSlice'
 
 const App = () => {
   const dispatch = useDispatch()
 
   useEffect(()=>{
     dispatch(getCategories())
+    dispatch(getProducts())
   },[dispatch])
   
   return (
