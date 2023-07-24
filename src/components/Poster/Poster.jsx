@@ -8,9 +8,9 @@ const Poster = () => {
         <div className={s.title}>BIG SALE 25%</div>
         <div className={s.product}>
             <div className={s.text}>
-            <div className={s.subtitle}>2023 Bestseller</div>
-            <h1 className={s.head}>LENNON r2d2 with NVIDIA 5090 TI</h1>
-            <button className={s.button}>Shop now</button>
+              <div className={s.subtitle}>2023 Bestseller</div>
+              <h1 className={s.head}>LENNON r2d2 with NVIDIA 5090 TI</h1>
+              <button className={s.button}>Shop now</button>
             </div>
             <div className={s.image}>
                 <img src={BG} alt="banner" />

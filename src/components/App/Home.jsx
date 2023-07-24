@@ -8,10 +8,11 @@ const Home = () => {
 const {list}  = useSelector(({products})=>products)
 
   return (
-    <div>
-      <Poster />
+      <>
+        <Poster />
+      
       <Products  products={list} amount={5} title='Trending'/>
-    </div>
+    </>
   )
 }
 
