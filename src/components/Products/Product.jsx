@@ -2,17 +2,24 @@ import React, { useEffect, useState } from 'react'
 import s from '../../styles/Product.module.css'
 import { ROUTES } from '../../utils/routes'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addItemToCart } from '../../features/user/userSlice'
 
 
 const SIZES = ['S','M','L','XL','XXL',]
 const COLORS = ['Black','White','Red','Blue','Yellow',]
 
-const Product = ({title, price, images,description}) => {
-  
+const Product = (item) => {
+    const {title, price, images,description} = item
+
+    const dispatch = useDispatch();
     const [currentImage, setCurrentImage] = useState()
     const [currentSize, setCurrentSize] = useState()
     const [currentColor, setCurrentColor] = useState()
 
+    const addToCart = () =>{
+        dispatch(addItemToCart(item)) 
+    }
 
     useEffect(()=>{
         if(!images.length) return
@@ -67,7 +74,7 @@ const Product = ({title, price, images,description}) => {
             <p className={s.description}>{description}</p>
 
             <div className={s.actions}>
-                <button className={s.add} disabled={!currentSize}>Add to card</button>
+                <button onClick={addToCart} className={s.add} disabled={!currentSize}>Add to cart</button>
                 <button className={s.favourite}>Add to favourite</button>
             </div>
             <div className={s.bottom}>
