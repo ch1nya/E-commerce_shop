@@ -18,6 +18,27 @@ export const createUser = createAsyncThunk(
     }
 ); 
 
+export const loginUser = createAsyncThunk(
+    'users/loginUser', 
+    async (payload,thunkAPI) => {
+        try {
+        const result = await axios.post(`${BASE_URL}/auth/login`, payload)
+        const login = await axios(`${BASE_URL}/auth/profile`,{
+            headers:{
+                "Authorization": `Bearer ${result.data.access_token}`}
+        })
+        
+        return login.data
+        } 
+        catch(err){
+        console.log(err)
+        return thunkAPI.rejectWithValue(err)
+        }
+    }
+); 
+
+const addCurrentUser = (state, {payload} ) => {
+    state.currentUser = payload }
 
 const userSlice = createSlice({
     name: 'user',
@@ -47,12 +68,15 @@ const userSlice = createSlice({
         },
         toggleForm: (state,{payload})=>{
             state.showForm = payload
-        }
-    },
+        },
+        toggleFormType:(state,{payload})=>{
+            state.formType = payload
+    }},
     extraReducers:(builder) => {
-            builder.addCase(createUser.fulfilled,(state, {payload} ) => {
-                state.currentUser = payload ;
-            });
+            builder.addCase(createUser.fulfilled, addCurrentUser);
+
+            builder.addCase(loginUser.fulfilled, addCurrentUser)
+                ;
             // builder.addCase(getCategories.pending,(state) => {
             //     state.isLoading = true
             // });
@@ -64,7 +88,7 @@ const userSlice = createSlice({
     }
 )
 
-export const {addItemToCart, toggleForm} = userSlice.actions;
+export const {addItemToCart, toggleForm,toggleFormType} = userSlice.actions;
 
 
 export default userSlice.reducer;
