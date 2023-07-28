@@ -24,7 +24,7 @@ const handleSubmit = (e) => {
   if (!isNotEmpty) return
   dispatch(createUser(values))
   closeForm()
-}
+};
 
   return (
     <div className={s.wrapper}>

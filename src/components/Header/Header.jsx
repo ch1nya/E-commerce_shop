@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import s from '../../styles/Header.module.css'
 import { ROUTES } from '../../utils/routes'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import LOGO from "../../images/LOGOP.svg"
 import logo from "../../images/logo.svg"
 import AVATAR from '../../images/avatar.jpg'
@@ -11,6 +11,7 @@ import { useState  } from 'react'
 
 const Header = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
     const {currentUser} = useSelector(({user})=>user)
   
   const [values, setValues] = useState({
@@ -26,7 +27,8 @@ const Header = () => {
   [currentUser])
 
     const handleClick = () =>{
-    if (!currentUser) dispatch(toggleForm(true));  
+    if (!currentUser) dispatch(toggleForm(true)); 
+    else navigate(ROUTES.PROFILE) 
   }
 
   
